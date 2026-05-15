@@ -15,10 +15,23 @@ gsap.registerPlugin(ScrollTrigger);
 export default function SiteLayout({ children }) {
   const pathname = usePathname();
 
+  useEffect(() => {
+    window.history.scrollRestoration = "manual";
+  }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (window.lenis) {
+      window.lenis.scrollTo(0, {
+        immediate: true,
+        force: true,
+      });
+    }
+
     const timeout = setTimeout(() => {
       ScrollTrigger.refresh();
+
       if (window.lenis) {
         window.lenis.resize();
       }
